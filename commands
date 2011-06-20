@@ -1,0 +1,62 @@
+#command to update start up links after creating startup script
+update-rc.d startMyAudio.sh defaults
+
+
+#commands for creating new branch
+git branch <branchname>
+
+#command to switch to the branch
+git checkout <branchname>
+
+#command to see all the branch information
+gitk --all
+git log --graph --all --oneline
+
+#merge the branches
+git merge <branchname>
+
+#command for tagging
+git tag -a <tagName> -m "message"
+
+git show <tagName>
+
+#resetting to previous commit
+git reset --hard HEAD
+
+#command to create new and switch to branch
+git checkout -b <branchname>
+
+#command to diff between files/branch/commit
+git diff
+
+#to be checked - more info
+git remote add remoteName remoteURL 
+
+#command to get remote repo - Need to experiment
+git fetch origin master ---more commands
+
+git pull origin master
+
+
+
+
+#Setting Up GITHUB Account Steps
+
+1. Get the User Account - harisha,harisha@
+2. Creating SSH key (ssh-keygen -t rsa) for your host and copy the key to the account
+3. Create a new repository
+4. Do following steps from your local machine
+   git config --global user.email haricubbon@gmail.com
+   git config --global user.name "Harisha"
+
+  git init
+  touch README
+  vi README 
+  clear
+  git add README 
+  git commit README
+  git remote add origin git@github.com:harisha/harishaGit.git
+  git push origin master
+
+5. Now GITHUB will have the contents you have pushed
+ 
