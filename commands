@@ -59,4 +59,17 @@ git pull origin master
   git push origin master
 
 5. Now GITHUB will have the contents you have pushed
+
+6. Creating remote branches 
+
+git push origin master:refs/heads/testing
+git branch --track testing origin/testing
+
+then commit on testing branch
+switch to Master Branch -> GIT checkout masters
+merge --> git merge testing
+
+7. Deleting remote branches
+ git push origin :testing
+ git branch -d testing (Local Branch)
  
