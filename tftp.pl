@@ -14,7 +14,7 @@ if($numOfArgs != 3)
 
 my $tftp;
 
-$tftp=new TFTP($ARGV[0]) or die "object creation failed $@";
+$tftp=new TFTP($ARGV[0]) or die "object creation failed $!";
 if($ARGV[1] eq "get")
 {
 	print "File --> $ARGV[2]\n";
@@ -31,7 +31,7 @@ else
 	print "Please Enter Valid TFTP Command \n";
 }
 
-$tftp->quit or die "TFTP quit failed $@";
+$tftp->quit or die "TFTP quit failed $!";
 
 
 
