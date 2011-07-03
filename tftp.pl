@@ -18,13 +18,13 @@ $tftp=new TFTP($ARGV[0]) or die "object creation failed $@";
 if($ARGV[1] eq "get")
 {
 	print "File --> $ARGV[2]\n";
-	$tftp->get($ARGV[2])  or die "get fail $@";
+	$tftp->get($ARGV[2]) or die "get fail $!";
 }
 elsif($ARGV[1] eq "put")
 {
 	print "File --> $ARGV[2]\n";
 	$tftp->octet;
-	$tftp->put($ARGV[2])  or die "put fail $!";
+	$tftp->put($ARGV[2]) or die "put $!";
 }
 else
 {
