@@ -1,0 +1,17 @@
+APPLN		= OSAL
+
+INCPROJ = -I /usr/include/libxml2
+
+CC = gcc
+LIBS=/usr/lib/libxml2.a
+OBJS = SDUXML.o
+
+run:$(OBJS)
+	gcc SDUXML.o $(LIBS) -lm -lz -o xmlOutput
+
+$(OBJS) : %.o : %.c
+	@echo ' Project Directory ' $(INCPROJ)
+	$(CC) $(INCPROJ) $(TGT) -c  $<
+
+clean:
+	rm -f SDUXML.o

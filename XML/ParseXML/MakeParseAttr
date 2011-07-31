@@ -1,0 +1,16 @@
+INCPROJ = -I /usr/include/libxml2
+
+CC = gcc -g
+LIBS=/usr/lib/libxml2.a
+OBJS = parseXmlAttr.o
+
+run:$(OBJS)
+	gcc parseXmlAttr.o $(LIBS) -lm -lz -o xmlParse
+
+$(OBJS) : %.o : %.c
+	@echo ' Project Directory ' $(INCPROJ)
+	$(CC) $(INCPROJ) $(TGT) -c  $<
+
+clean:
+	rm -f parseXmlAttr.o 
+	rm -f xmlParse
