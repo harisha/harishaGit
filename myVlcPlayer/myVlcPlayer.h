@@ -11,7 +11,7 @@
 #include <QObject>
 
 
-class myVlcPlayer : public QWidget, public Ui::myVlcPlayerDlg
+class myVlcPlayer : public QWidget, public Ui_myVlcPlayerDlg
 {
        Q_OBJECT
 

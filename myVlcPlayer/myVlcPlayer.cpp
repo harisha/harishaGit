@@ -3,10 +3,16 @@
  
 myVlcPlayer::myVlcPlayer(QWidget *parent)
 {
-    setupUi(this);
+     inst = NULL;
+     mp = NULL;
+     m = NULL;
+     isPlaying = 0;
+ 
+   setupUi(this);
     // signals/slots mechanism in action
     connect(btnStart, SIGNAL(clicked()), this, SLOT(startAudio()) ); 
-    //connect( btnStop, SIGNAL(clicked()), this, SLOT(stopAudio()) ); 
+    connect(btnStop, SIGNAL(clicked()), this, SLOT(stopAudio())); 
+    connect(sliderVol, SIGNAL(valueChanged(int)), this, SLOT(changeVol(int)));
 }
 
 void myVlcPlayer::startAudio()
@@ -24,11 +30,15 @@ void myVlcPlayer::stopAudio()
            {
                libvlc_media_player_stop (mp);
            }
+           isPlaying = FALSE;
 }
 
 void myVlcPlayer::changeVol(int level)
 {
-    libvlc_audio_set_volume(mp,level);
+    if(isPlaying)
+    {
+        libvlc_audio_set_volume(mp,level);
+    }
 }
 
 
