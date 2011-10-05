@@ -37,14 +37,98 @@ struct sniff_udp
 	u_short checksum; 	/* checksum */
 };
 
+void  print_hex_ascii_line(const u_char *payload, int len, int offset)  
+{  
+   
+  int i;  
+  int gap;  
+  const u_char *ch;  
+   
+  /* offset */  
+  printf("%05d   ", offset);  
+    
+  /* hex */  
+  ch = payload;  
+  for(i = 0; i < len; i++) {  
+   printf("%02x ", *ch);  
+   ch++;  
+   /* print extra space after 8th byte for visual aid */  
+   if (i == 7)  
+    printf(" ");  
+  }  
+  /* print space to handle line less than 8 bytes */  
+  if (len < 8)  
+   printf(" ");  
+    
+  /* fill hex gap with spaces if not full line */  
+  if (len < 16) {  
+   gap = 16 - len;  
+   for (i = 0; i < gap; i++) {  
+    printf("   ");  
+   }  
+  }  
+  printf("   ");  
+    
+  /* ascii (if printable) */  
+  ch = payload;  
+  for(i = 0; i < len; i++) {  
+   if (isprint(*ch))  
+    printf("%c", *ch);  
+   else  
+    printf(".");  
+   ch++;  
+  }  
+   
+  printf("\n");  
+   
+ return;  
+} 
+
+void print_payload(const u_char* payload, int len)
+{
+    int offset = 0;
+    int len_rem = len;
+    if(len <= 0)
+    {
+	printf("Payload is empty \n");
+	return;
+    }
+    /* print 16 bytes at shot */
+    if(len < 16)
+    {
+        print_hex_ascii_line(payload, len, 0);
+        return;
+    }
+
+    while(1)
+    {
+        print_hex_ascii_line(payload,16,offset); // print 16 bytes
+        offset = offset + 16;
+        payload = payload + 16;
+        
+        len_rem = len_rem -16;
+        
+        printf("offset %d len_rem %d \n",offset,len_rem);
+        /* break if last line */
+        if(len_rem < 16)
+        {
+		print_hex_ascii_line(payload,len_rem,offset);
+		printf("In if \n");
+		break;
+        }
+    }
+}
 void handle_udp_packet(const u_char* packet)
 {
 	const struct sniff_udp *udp;
+        int len;
 	udp = (struct sniff_udp *)(packet);
 	printf("UDP HEADER \n");
 	printf("src port %d\n",ntohs(udp->src_port));
 	printf("dest port %d\n",ntohs(udp->dest_port));
-	printf("len %d\n",ntohs(udp->total_len));
+        len = ntohs(udp->total_len);
+        printf("len: %d\n",len);
+        print_payload((packet+8),len-8); //UDP header 8 bytes
 }
 void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 {
